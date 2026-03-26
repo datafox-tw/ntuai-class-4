@@ -13,3 +13,5 @@ python-dotenv
 ddgs
 qdrant-client
 fastembed
+psycopg
+sqlalchemy

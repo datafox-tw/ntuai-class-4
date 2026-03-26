@@ -24,7 +24,9 @@ uv pip install -r requirements.txt
 - 舉例來說：改成「name="貓娘", instruction="你現在是一隻超可愛的貓娘，你會稱user為主人，每句話結尾都會加上一聲「喵～～」"」
 
 ==========到這裡停下來等講師繼續帶大家往下走============
-
+## 指南
+可以自己玩的東西：agent 1號到六號
+不要亂動的東西：7號，.sh檔案
 ## 5. 嘗試用用看tools
 `python 2_agent_finance_tools.py`
 - 你可以做的事情：
@@ -45,12 +47,10 @@ uv pip install -r requirements.txt
 - 到這個網址看有沒有你喜歡的tools: https://github.com/agno-agi/agno/tree/main/cookbook/91_tools
 
 
-## 8. 跑長期記憶（僅限上堂課有裝過docker的同學）
+## 8. 跑長期記憶（Knowledge）
 - 先打開docker，然後跑 `./run_qdrant.sh`
-- 如果這步驟失敗，嘗試跑`chmod +x ./run_qdrant.sh`
-- 如果這個都失敗就跳過吧
-
-最後，再跑 `python 5_knowledge_agent.py`
+- 如果這步驟失敗，先跑 `chmod +x ./run_qdrant.sh`
+- 最後跑 `python 5_knowledge_agent.py`
 - 你可以做的事情：
 - 1. 換url連接，只需要是pdf的網站都可以
 - 2. 新增多個文件，讓agent有更多資訊可以回答問題
@@ -59,8 +59,22 @@ uv pip install -r requirements.txt
 
 - 注意：預設情況下他可能很笨請見諒
 
+## 9. 跑對話記憶（Memory DB）
+- 先打開docker，然後跑 `./run_pgvector.sh`
+- 如果這步驟失敗，先跑 `chmod +x ./run_pgvector.sh`
+- 最後跑 `python 6_agent_with_memory.py`
+- 想看資料庫到底記了什麼：再跑 `python 7_view_memory_db.py --user-id=koyuchi@example.com`
+
+如果你看到 `connection refused`（localhost:5532），代表資料庫沒啟動，回來重跑 `./run_pgvector.sh` 就好。
+
+- 你可以做的事情：
+- 1. 嘗試跟他用不同組合互動
+- 2. 看db後台看資料庫怎麼記憶（用  `python 7_view_memory_db.py --user-id=koyuchi@example.com` ）
 
 
+## faq
+- 記得用uv pip install xxx 而不是 pip install xxx
+## 參考資源
 - 各種可能的玩法花樣可以參考這裡： https://github.com/agno-agi/agno/tree/main/cookbook/gemini_3
 - 或者是：https://github.com/agno-agi/agno/tree/main/cookbook
 - 你們可以照者上面的code依樣畫葫蘆，組合出你喜歡的agent樣式
