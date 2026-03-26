@@ -1,0 +1,15 @@
+# Google Gemini
+agno
+google-genai
+duckduckgo-search
+yfinance
+youtube_transcript_api
+requests
+numpy
+lancedb
+tantivy
+pypdf
+python-dotenv
+ddgs
+qdrant-client
+fastembed
