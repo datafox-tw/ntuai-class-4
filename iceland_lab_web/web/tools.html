@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Iceland Lab - 工具工作台</title>
+  <link rel="stylesheet" href="/assets/style.css" />
+</head>
+<body data-page="tools">
+  <header class="top">
+    <h1>工具工作台</h1>
+    <p>Example 2/4/9 + 圖片資源：web search、YouTube 翻譯摘要、photo 素材瀏覽。</p>
+    <nav class="nav">
+      <a href="/">首頁</a>
+      <a href="/chat">對話</a>
+      <a href="/knowledge">資料庫知識</a>
+      <a href="/memory">長期記憶</a>
+      <a href="/tools" class="active">工具工作台</a>
+    </nav>
+  </header>
+
+  <main class="main grid">
+    <section class="card">
+      <h2>Web Search</h2>
+      <input id="searchQ" value="Iceland weather next week driving risk" />
+      <button class="btn" id="searchBtn">搜尋</button>
+      <div class="out" id="searchOut"></div>
+    </section>
+
+    <section class="card">
+      <h2>YouTube 旅遊指南翻譯器</h2>
+      <input id="ytUrl" value="https://www.youtube.com/watch?v=dTkV9n4WbIQ" />
+      <button class="btn alt" id="ytBtn">抓字幕並摘要</button>
+      <div class="out" id="ytOut"></div>
+    </section>
+
+    <section class="card" style="grid-column: 1 / -1;">
+      <h2>冰島照片素材（from `./iceland_data_photo`）</h2>
+      <div id="photoGrid" class="photo-grid"></div>
+    </section>
+  </main>
+
+  <script src="/assets/app.js"></script>
+</body>
+</html>

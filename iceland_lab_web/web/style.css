@@ -1,0 +1,89 @@
+:root {
+  --bg: #eef4f7;
+  --panel: #ffffff;
+  --ink: #13212b;
+  --muted: #4f6270;
+  --accent: #0f766e;
+  --accent2: #f59e0b;
+  --line: #d7e1e6;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  color: var(--ink);
+  font-family: "Space Grotesk", "Noto Sans TC", "PingFang TC", sans-serif;
+  background: radial-gradient(circle at 5% 0%, #d8edf6 0%, #eef4f7 45%, #f4f7f1 100%);
+}
+.top {
+  background: linear-gradient(130deg, #0f766e 0%, #115e73 52%, #1f2937 100%);
+  color: #fff;
+  padding: 26px 16px;
+}
+.top h1 { margin: 0 0 6px; font-size: 30px; }
+.top p { margin: 0; opacity: .95; }
+.nav {
+  margin-top: 12px;
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.nav a {
+  text-decoration: none;
+  color: #d8f5f1;
+  border: 1px solid rgba(216,245,241,.5);
+  border-radius: 999px;
+  padding: 5px 10px;
+  font-size: 13px;
+}
+.nav a.active { background: #d8f5f1; color: #08443f; }
+.main { max-width: 1080px; margin: 18px auto 40px; padding: 0 12px; }
+.card {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 12px;
+  box-shadow: 0 8px 22px rgba(0,0,0,.05);
+}
+.grid { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
+h2 { margin: 2px 0 10px; }
+h3 { margin: 4px 0 8px; }
+.muted { color: var(--muted); }
+.out {
+  min-height: 90px;
+  white-space: pre-wrap;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  background: #0d2232;
+  color: #e6f0f8;
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid #294559;
+  font-size: 13px;
+}
+input, textarea {
+  width: 100%;
+  border: 1px solid #c7d5db;
+  border-radius: 10px;
+  padding: 9px;
+  font-size: 14px;
+}
+textarea { min-height: 110px; }
+.btn {
+  margin-top: 8px;
+  border: 0;
+  border-radius: 9px;
+  background: var(--accent);
+  color: #fff;
+  padding: 8px 12px;
+  font-weight: 700;
+  cursor: pointer;
+}
+.btn.alt { background: var(--accent2); color: #1b1b1b; }
+.example { border-bottom: 1px dashed #d6e2e8; padding: 8px 0; }
+.photo-grid { display: grid; gap: 10px; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); }
+.photo-card img {
+  width: 100%;
+  border: 1px solid #d4e2e8;
+  border-radius: 10px;
+  aspect-ratio: 4/3;
+  object-fit: cover;
+}

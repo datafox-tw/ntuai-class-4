@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Iceland Lab - 對話</title>
+  <link rel="stylesheet" href="/assets/style.css" />
+</head>
+<body data-page="chat">
+  <header class="top">
+    <h1>對話介面</h1>
+    <p>Example 1 + 6 的實作入口：聊天同時寫入長期記憶。</p>
+    <nav class="nav">
+      <a href="/">首頁</a>
+      <a href="/chat" class="active">對話</a>
+      <a href="/knowledge">資料庫知識</a>
+      <a href="/memory">長期記憶</a>
+      <a href="/tools">工具工作台</a>
+    </nav>
+  </header>
+
+  <main class="main">
+    <div class="card">
+      <h2>旅行助理聊天</h2>
+      <input id="userId" value="student@example.com" />
+      <textarea id="chatInput" placeholder="例如：我的預算 50000，想自駕 6 天，想去藍湖"></textarea>
+      <button class="btn" id="chatBtn">送出</button>
+      <div class="out" id="chatOut"></div>
+    </div>
+  </main>
+  <script src="/assets/app.js"></script>
+</body>
+</html>

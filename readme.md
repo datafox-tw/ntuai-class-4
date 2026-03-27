@@ -1,6 +1,27 @@
 ## 跟我做一模一樣的事情，簡單跑得動這次的課程教學！
 - 用Docker那個方法，我最後會分享給大家該怎麼用最好
 
+## 新增：冰島旅行 Agent 多頁教學網站（開箱即用）
+這個版本把 `example 1~9` 整合成一個真實專案風格網站，不只有聊天框，還有：
+- 對話頁（chat）
+- 資料庫知識頁（knowledge，使用 `./iceland_data_pdf`）
+- 長期記憶頁（memory）
+- 工具頁（web search + YouTube 旅遊指南翻譯摘要 + `./iceland_data_photo`）
+
+### 用 uv 啟動（建議）
+1. `uv venv --python 3.12`
+2. `source .venv/bin/activate`
+3. `uv pip install -r requirements.txt`
+4. `./run_iceland_lab_web.sh`
+5. 打開 `http://127.0.0.1:8765`
+
+### 頁面路由
+- `/` 首頁（example 1~9 對照）
+- `/chat` 對話頁（example 1 + 6）
+- `/knowledge` 資料庫知識頁（example 5）
+- `/memory` 記憶檢視頁（example 7）
+- `/tools` 工具頁（example 2 + 4 + 9）
+
 ## 1. 用一個IDE介面(vscode, antigravity, pycharm...) 開起terminal
 - 理論上你就會在你的專案資料夾 (aka你放code的地方)，在這裡執行code
 - ls: 看你現在在哪一個資料夾
@@ -71,6 +92,14 @@ uv pip install -r requirements.txt
 - 1. 嘗試跟他用不同組合互動
 - 2. 看db後台看資料庫怎麼記憶（用  `python 7_view_memory_db.py --user-id=koyuchi@example.com` ）
 
+## 其他可以嘗試的
+- `8_audio_agent.py` 嘗試語音轉文字
+- `9_google_search.py` 不使用工具直接嘗試api key裡面的功能
+
+## 最後有一個完整的demo給大家玩
+
+助教提供的，我們用冰島旅遊網站做為概念，讓大家可以嘗試玩一個做好的網站，然後這個網站結合了剛剛嘗試使用的很多功能。
+直接運行`python iceland_lab_web/app.py`
 
 ## faq
 - 記得用uv pip install xxx 而不是 pip install xxx

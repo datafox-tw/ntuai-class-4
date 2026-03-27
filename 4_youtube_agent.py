@@ -20,10 +20,10 @@ google_api_key = os.getenv('GOOGLE_API_KEY')
 
 
 agent = Agent(
-    name="你是一個健康助手",
+    name="你是一個影片助手",
     model=Gemini(api_key=google_api_key, id="gemini-2.5-flash"),
     tools=[YouTubeTools()],
-    description="You are a YouTube agent. Obtain the captions of a YouTube video and answer questions.",
+    description="請嘗試取得 YouTube 影片的字幕並回答問題",
 )
 
 # ---------------------------------------------------------------------------
@@ -31,6 +31,6 @@ agent = Agent(
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
     agent.print_response(
-        "Summarize this video https://www.youtube.com/watch?v=Iv9dewmcFbs&t",
+        "幫我分析這部影片好看嗎 https://www.youtube.com/watch?v=dTkV9n4WbIQ&t",
         markdown=True,
     )

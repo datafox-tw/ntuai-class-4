@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Iceland Lab - 資料庫知識</title>
+  <link rel="stylesheet" href="/assets/style.css" />
+</head>
+<body data-page="knowledge">
+  <header class="top">
+    <h1>資料庫知識（Knowledge）</h1>
+    <p>直接使用 `./iceland_data_pdf` 建立索引並查詢。</p>
+    <nav class="nav">
+      <a href="/">首頁</a>
+      <a href="/chat">對話</a>
+      <a href="/knowledge" class="active">資料庫知識</a>
+      <a href="/memory">長期記憶</a>
+      <a href="/tools">工具工作台</a>
+    </nav>
+  </header>
+
+  <main class="main grid">
+    <section class="card">
+      <h2>文件索引</h2>
+      <button class="btn" id="rebuildBtn">重建索引</button>
+      <button class="btn alt" id="listBtn">列出 PDF</button>
+      <div class="out" id="docsOut"></div>
+    </section>
+    <section class="card">
+      <h2>知識問答</h2>
+      <input id="knowledgeQ" placeholder="例如：租車保險與機票改期規則" />
+      <button class="btn" id="askBtn">查詢</button>
+      <div class="out" id="knowledgeOut"></div>
+    </section>
+  </main>
+  <script src="/assets/app.js"></script>
+</body>
+</html>
