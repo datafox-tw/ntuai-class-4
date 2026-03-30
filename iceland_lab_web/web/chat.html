@@ -9,7 +9,7 @@
 <body data-page="chat">
   <header class="top">
     <h1>全能旅行助理</h1>
-    <p>展示 AI Agent 結合 知識檢索 (RAG)、長期記憶 (Memory) 與 即時工具 (Tools) 的完整互動體驗。</p>
+    <p>Agno Agent 實戰頁：整合 Example 1（基本 Agent）+ 5（Knowledge）+ 6（Memory）+ 2/4（Tools）。</p>
     <nav class="nav">
       <a href="/">首頁</a>
       <a href="/chat" class="active">對話</a>
@@ -29,6 +29,12 @@
       </div>
       <div class="agent-input-area">
         <input type="text" id="userId" value="student@example.com" placeholder="用戶ID">
+        <div style="margin-top:8px;">
+          <button id="resetBtn" class="btn danger">Reset 記憶與對話</button>
+        </div>
+        <div class="muted" style="margin-top: 8px;">
+          範例提問：我和老婆預算 20 萬、想排 5 天自駕行程，必去藍湖，請給每天早午晚安排。
+        </div>
         <div class="input-row">
            <textarea id="agentInput" rows="2" placeholder="例如：幫我排 5 天自駕行程/預算 5 萬"></textarea>
            <button id="sendBtn" class="btn">傳送</button>

@@ -87,13 +87,16 @@ uv pip install -r requirements.txt
 1. 如果還沒跑過的話，請先運行 `./run_pgvector.sh`跟`./run_qdrant.sh`
 2. 運行`python iceland_lab_web/app.py` 
 3. 然後去`http://127.0.0.1:8765` (網站)
+4. 或者直接使用 `run_iceland_lab_web.sh`
 
+可以問問看和知識庫有關的問題 ，例如 請問vik鎮景點與美食
 
 
 ### 頁面路由
 - `/` 首頁（example 1~9 對照）
 - `/chat` 對話頁（example 1 + 6）
 - `/knowledge` 資料庫知識頁（example 5）
+- `/upload` 上傳與預處理頁（PDF -> Chunk -> Embedding）
 - `/memory` 記憶檢視頁（example 7）
 - `/tools` 工具頁（example 2 + 4 + 9）
 
@@ -105,4 +108,3 @@ uv pip install -r requirements.txt
 - 或者是：https://github.com/agno-agi/agno/tree/main/cookbook
 - 你們可以照者上面的code依樣畫葫蘆，組合出你喜歡的agent樣式
 - 反正看不懂要怎麼修改的話就把這個github裡面的內容都丟給coding agent叫他幫你新增一個python code檔案
-

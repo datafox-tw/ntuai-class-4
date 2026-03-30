@@ -13,7 +13,7 @@ from urllib.parse import urlparse
 try:
     from iceland_lab_web.services.db import ensure_db
     from iceland_lab_web.services.knowledge import index_file, list_docs, rebuild_knowledge_index, search_knowledge
-    from iceland_lab_web.services.memory import add_chat, generate_reply, get_chat_history, get_memory
+    from iceland_lab_web.services.memory import add_chat, generate_reply, get_chat_history, get_memory, reset_user_data
     from iceland_lab_web.services.tools import list_photos, web_search, youtube_summary
 except ModuleNotFoundError:
     # Allow running with: python iceland_lab_web/app.py
@@ -22,7 +22,7 @@ except ModuleNotFoundError:
         sys.path.insert(0, str(ROOT_DIR))
     from iceland_lab_web.services.db import ensure_db
     from iceland_lab_web.services.knowledge import index_file, list_docs, rebuild_knowledge_index, search_knowledge
-    from iceland_lab_web.services.memory import add_chat, generate_reply, get_chat_history, get_memory
+    from iceland_lab_web.services.memory import add_chat, generate_reply, get_chat_history, get_memory, reset_user_data
     from iceland_lab_web.services.tools import list_photos, web_search, youtube_summary
 
 BASE_DIR = Path(__file__).resolve().parent
@@ -87,6 +87,8 @@ class Handler(BaseHTTPRequestHandler):
     def do_GET(self) -> None:  # noqa: N802
         try:
             path = urlparse(self.path).path
+            if path != "/" and path.endswith("/"):
+                path = path.rstrip("/")
             if path in PAGES:
                 return self._send_file(WEB_DIR / PAGES[path])
 
@@ -119,6 +121,8 @@ class Handler(BaseHTTPRequestHandler):
     def do_POST(self) -> None:  # noqa: N802
         try:
             path = urlparse(self.path).path
+            if path != "/" and path.endswith("/"):
+                path = path.rstrip("/")
             if path == "/api/upload":
                 # Handle multipart
                 form = cgi.FieldStorage(
@@ -172,6 +176,11 @@ class Handler(BaseHTTPRequestHandler):
             if path == "/api/history":
                 user_id = (data.get("user_id") or "student@example.com").strip()
                 return self._send_json({"ok": True, "history": get_chat_history(user_id)})
+
+            if path == "/api/reset_user":
+                user_id = (data.get("user_id") or "student@example.com").strip()
+                stats = reset_user_data(user_id)
+                return self._send_json({"ok": True, "user_id": user_id, **stats})
 
             if path == "/api/web_search":
                 query = (data.get("query") or "").strip()

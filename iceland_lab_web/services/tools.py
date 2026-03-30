@@ -1,21 +1,30 @@
 from __future__ import annotations
 
+import os
 from pathlib import Path
 from typing import Any
 from urllib.parse import parse_qs, urlparse
+
+from dotenv import load_dotenv
+
+try:
+    from agno.agent import Agent
+    from agno.models.google import Gemini
+    from agno.tools.youtube import YouTubeTools
+except Exception:  # pragma: no cover
+    Agent = None  # type: ignore
+    Gemini = None  # type: ignore
+    YouTubeTools = None  # type: ignore
 
 try:
     from duckduckgo_search import DDGS
 except Exception:  # pragma: no cover
     DDGS = None  # type: ignore
 
-try:
-    from youtube_transcript_api import YouTubeTranscriptApi
-except Exception:  # pragma: no cover
-    YouTubeTranscriptApi = None  # type: ignore
-
 BASE_DIR = Path(__file__).resolve().parents[2]
 PHOTO_DIR = BASE_DIR / "iceland_data_photo"
+load_dotenv(BASE_DIR / ".env")
+API_KEY = os.getenv("GEMINI_API_KEY") or os.getenv("GOOGLE_API_KEY")
 
 
 def web_search(query: str) -> list[dict[str, str]]:
@@ -55,17 +64,39 @@ def extract_youtube_id(url: str) -> str | None:
 
 
 def youtube_summary(url: str) -> dict[str, Any]:
-    if YouTubeTranscriptApi is None:
-        return {"ok": False, "message": "youtube_transcript_api 未安裝"}
-
     video_id = extract_youtube_id(url)
     if not video_id:
         return {"ok": False, "message": "無法解析 YouTube URL"}
 
+    if Agent is None or Gemini is None or YouTubeTools is None:
+        return {"ok": False, "message": "agno YouTubeTools 未安裝或匯入失敗"}
+    if not API_KEY:
+        return {"ok": False, "message": "Gemini API key 未設定"}
+
     try:
-        data = YouTubeTranscriptApi.get_transcript(video_id, languages=["zh-Hant", "zh", "en"])
-        text = " ".join([x.get("text", "") for x in data]).strip()
-        bullets = [seg.strip() for seg in text.split(".") if seg.strip()][:8]
+        agent = Agent(
+            model=Gemini(api_key=API_KEY, id="gemini-2.5-flash"),
+            tools=[YouTubeTools()],
+            description="取得 YouTube 字幕後，整理成教學友善的重點摘要",
+            markdown=True,
+        )
+        prompt = (
+            f"請摘要這支影片的重點：{url}\n"
+            "請用繁中輸出 6 個條列重點，每點一句話。"
+        )
+        output = agent.run(prompt)
+        text = str(output.content or "").strip()
+        if not text:
+            return {"ok": False, "message": "模型沒有回傳內容"}
+
+        bullets = []
+        for line in text.splitlines():
+            cleaned = line.strip().lstrip("-•* ").strip()
+            if cleaned:
+                bullets.append(cleaned)
+        if not bullets:
+            bullets = [text]
+        bullets = bullets[:8]
         return {"ok": True, "video_id": video_id, "summary": bullets, "length_chars": len(text)}
     except Exception as e:
         return {"ok": False, "message": f"讀取字幕失敗: {e}"}
