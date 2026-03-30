@@ -23,7 +23,25 @@ def ensure_db() -> None:
                 path TEXT UNIQUE NOT NULL,
                 title TEXT NOT NULL,
                 content TEXT NOT NULL,
+                embedding BLOB,
                 updated_at TEXT NOT NULL
+            )
+            """
+        )
+        try:
+            conn.execute("ALTER TABLE docs ADD COLUMN status TEXT DEFAULT 'indexed'")
+            conn.commit()
+        except sqlite3.OperationalError:
+            pass
+        conn.execute(
+            """
+            CREATE TABLE IF NOT EXISTS doc_chunks (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                doc_id INTEGER NOT NULL,
+                chunk_index INTEGER NOT NULL,
+                content TEXT NOT NULL,
+                embedding BLOB,
+                FOREIGN KEY(doc_id) REFERENCES docs(id) ON DELETE CASCADE
             )
             """
         )

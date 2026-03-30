@@ -1,26 +1,4 @@
 ## 跟我做一模一樣的事情，簡單跑得動這次的課程教學！
-- 用Docker那個方法，我最後會分享給大家該怎麼用最好
-
-## 新增：冰島旅行 Agent 多頁教學網站（開箱即用）
-這個版本把 `example 1~9` 整合成一個真實專案風格網站，不只有聊天框，還有：
-- 對話頁（chat）
-- 資料庫知識頁（knowledge，使用 `./iceland_data_pdf`）
-- 長期記憶頁（memory）
-- 工具頁（web search + YouTube 旅遊指南翻譯摘要 + `./iceland_data_photo`）
-
-### 用 uv 啟動（建議）
-1. `uv venv --python 3.12`
-2. `source .venv/bin/activate`
-3. `uv pip install -r requirements.txt`
-4. `./run_iceland_lab_web.sh`
-5. 打開 `http://127.0.0.1:8765`
-
-### 頁面路由
-- `/` 首頁（example 1~9 對照）
-- `/chat` 對話頁（example 1 + 6）
-- `/knowledge` 資料庫知識頁（example 5）
-- `/memory` 記憶檢視頁（example 7）
-- `/tools` 工具頁（example 2 + 4 + 9）
 
 ## 1. 用一個IDE介面(vscode, antigravity, pycharm...) 開起terminal
 - 理論上你就會在你的專案資料夾 (aka你放code的地方)，在這裡執行code
@@ -37,6 +15,8 @@ pip install uv
 uv venv --python 3.12
 source .venv/bin/activate
 uv pip install -r requirements.txt
+然後就可以跑我提供的這些ai agent了！
+
 
 ## 4.運行 python code
 `python 1_agent_basic.py`
@@ -97,14 +77,32 @@ uv pip install -r requirements.txt
 - `9_google_search.py` 不使用工具直接嘗試api key裡面的功能
 
 ## 最後有一個完整的demo給大家玩
+助教提供的，我們用冰島旅遊網站做為概念，讓大家可以嘗試玩一個做好的網站，然後這個網站結合了剛剛嘗試使用的很多功能。這個版本把 `example 1~9` 整合成一個真實專案風格網站，不只有聊天框，還有：
+- 對話頁（chat）
+- 資料庫知識頁（knowledge，使用 `./iceland_data_pdf`）
+- 長期記憶頁（memory）
+- 工具頁（web search + YouTube 旅遊指南翻譯摘要 + `./iceland_data_photo`）
 
-助教提供的，我們用冰島旅遊網站做為概念，讓大家可以嘗試玩一個做好的網站，然後這個網站結合了剛剛嘗試使用的很多功能。
-直接運行`python iceland_lab_web/app.py`
+### 使用方式
+1. 如果還沒跑過的話，請先運行 `./run_pgvector.sh`跟`./run_qdrant.sh`
+2. 運行`python iceland_lab_web/app.py` 
+3. 然後去`http://127.0.0.1:8765` (網站)
+
+
+
+### 頁面路由
+- `/` 首頁（example 1~9 對照）
+- `/chat` 對話頁（example 1 + 6）
+- `/knowledge` 資料庫知識頁（example 5）
+- `/memory` 記憶檢視頁（example 7）
+- `/tools` 工具頁（example 2 + 4 + 9）
 
 ## faq
 - 記得用uv pip install xxx 而不是 pip install xxx
+
 ## 參考資源
 - 各種可能的玩法花樣可以參考這裡： https://github.com/agno-agi/agno/tree/main/cookbook/gemini_3
 - 或者是：https://github.com/agno-agi/agno/tree/main/cookbook
 - 你們可以照者上面的code依樣畫葫蘆，組合出你喜歡的agent樣式
-- 反正看不懂要怎麼修改的話就把這個github裡面的內容都丟給coding agent叫他幫你新增一個python code檔案# ntuai-class-4
+- 反正看不懂要怎麼修改的話就把這個github裡面的內容都丟給coding agent叫他幫你新增一個python code檔案
+

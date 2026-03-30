@@ -12,7 +12,7 @@ from urllib.parse import urlparse
 
 try:
     from iceland_lab_web.services.db import ensure_db
-    from iceland_lab_web.services.knowledge import list_docs, rebuild_knowledge_index, search_knowledge
+    from iceland_lab_web.services.knowledge import index_file, list_docs, rebuild_knowledge_index, search_knowledge
     from iceland_lab_web.services.memory import add_chat, generate_reply, get_chat_history, get_memory
     from iceland_lab_web.services.tools import list_photos, web_search, youtube_summary
 except ModuleNotFoundError:
@@ -21,7 +21,7 @@ except ModuleNotFoundError:
     if str(ROOT_DIR) not in sys.path:
         sys.path.insert(0, str(ROOT_DIR))
     from iceland_lab_web.services.db import ensure_db
-    from iceland_lab_web.services.knowledge import list_docs, rebuild_knowledge_index, search_knowledge
+    from iceland_lab_web.services.knowledge import index_file, list_docs, rebuild_knowledge_index, search_knowledge
     from iceland_lab_web.services.memory import add_chat, generate_reply, get_chat_history, get_memory
     from iceland_lab_web.services.tools import list_photos, web_search, youtube_summary
 
@@ -47,9 +47,12 @@ PAGES = {
     "/": "index.html",
     "/chat": "chat.html",
     "/knowledge": "knowledge.html",
+    "/upload": "upload.html",
     "/memory": "memory.html",
     "/tools": "tools.html",
 }
+
+import cgi
 
 
 class Handler(BaseHTTPRequestHandler):
@@ -116,6 +119,31 @@ class Handler(BaseHTTPRequestHandler):
     def do_POST(self) -> None:  # noqa: N802
         try:
             path = urlparse(self.path).path
+            if path == "/api/upload":
+                # Handle multipart
+                form = cgi.FieldStorage(
+                    fp=self.rfile,
+                    headers=self.headers,
+                    environ={"REQUEST_METHOD": "POST", "CONTENT_TYPE": self.headers["Content-Type"]},
+                )
+                if "file" not in form:
+                    return self._send_json({"ok": False, "error": "No file uploaded"}, status=400)
+                
+                file_item = form["file"]
+                if not file_item.filename:
+                    return self._send_json({"ok": False, "error": "Empty filename"}, status=400)
+                
+                # Use PDF_DIR from knowledge if possible, or define it here
+                pdf_path = BASE_DIR.parent / "iceland_data_pdf" / file_item.filename
+                pdf_path.parent.mkdir(parents=True, exist_ok=True)
+                
+                with open(pdf_path, "wb") as f:
+                    f.write(file_item.file.read())
+                
+                # Index in background (or foreground for simplicity now)
+                stats = index_file(pdf_path)
+                return self._send_json({"ok": True, "filename": file_item.filename, "stats": stats})
+
             data = self._parse_json()
 
             if path == "/api/rebuild_knowledge":

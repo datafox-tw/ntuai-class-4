@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Iceland Lab - 上傳與預處理</title>
+  <link rel="stylesheet" href="/assets/style.css" />
+</head>
+<body data-page="upload">
+  <header class="top">
+    <h1>上傳與預處理 (RAG Pipeline)</h1>
+    <p>示範如何將原始 PDF 透過 Chunking & Embedding 轉換為向量。</p>
+    <nav class="nav">
+      <a href="/">首頁</a>
+      <a href="/chat">對話</a>
+      <a href="/knowledge">資料庫知識</a>
+      <a href="/upload" class="active">上傳與預處理</a>
+      <a href="/memory">長期記憶</a>
+      <a href="/tools">工具工作台</a>
+    </nav>
+  </header>
+
+  <main class="main">
+    <div class="card">
+      <h2>1. 檔案上傳區 (Drag & Drop)</h2>
+      <div id="dropZone" class="drop-zone">
+        <p>點擊選取或拖放 PDF 檔案到此處</p>
+        <p class="muted">上傳後系統將自動呼叫 Gemini 建立 Embedding，並存入 SQLite。請留意 API Quota。</p>
+        <input type="file" id="fileInput" accept=".pdf" style="display: none;">
+      </div>
+      <div id="uploadStatus" class="out hidden" style="margin-top: 15px;"></div>
+    </div>
+
+    <div class="card">
+      <h2>2. 目前文件與 Chunk 數量清單</h2>
+      <button id="refreshDocsBtn" class="btn">刷新列表</button>
+      <ul id="docList" class="doc-list" style="margin-top: 15px;"></ul>
+    </div>
+  </main>
+
+  <script src="/assets/app.js"></script>
+</body>
+</html>

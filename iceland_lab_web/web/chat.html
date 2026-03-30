@@ -3,31 +3,47 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Iceland Lab - 對話</title>
+  <title>Iceland Lab - 對話助理</title>
   <link rel="stylesheet" href="/assets/style.css" />
 </head>
 <body data-page="chat">
   <header class="top">
-    <h1>對話介面</h1>
-    <p>Example 1 + 6 的實作入口：聊天同時寫入長期記憶。</p>
+    <h1>全能旅行助理</h1>
+    <p>展示 AI Agent 結合 知識檢索 (RAG)、長期記憶 (Memory) 與 即時工具 (Tools) 的完整互動體驗。</p>
     <nav class="nav">
       <a href="/">首頁</a>
       <a href="/chat" class="active">對話</a>
       <a href="/knowledge">資料庫知識</a>
+      <a href="/upload">上傳與預處理</a>
       <a href="/memory">長期記憶</a>
       <a href="/tools">工具工作台</a>
     </nav>
   </header>
 
   <main class="main">
-    <div class="card">
-      <h2>旅行助理聊天</h2>
-      <input id="userId" value="student@example.com" />
-      <textarea id="chatInput" placeholder="例如：我的預算 50000，想自駕 6 天，想去藍湖"></textarea>
-      <button class="btn" id="chatBtn">送出</button>
-      <div class="out" id="chatOut"></div>
+    <div class="agent-chat-container">
+      <div id="agentHistory" class="agent-history">
+        <div class="message system">
+          你好！我是全能冰島旅行助理。請告訴我你的需求。
+        </div>
+      </div>
+      <div class="agent-input-area">
+        <input type="text" id="userId" value="student@example.com" placeholder="用戶ID">
+        <div class="input-row">
+           <textarea id="agentInput" rows="2" placeholder="例如：幫我排 5 天自駕行程/預算 5 萬"></textarea>
+           <button id="sendBtn" class="btn">傳送</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Agent's reasoning box -->
+    <div id="thinkingProcess" class="thinking-process hidden">
+      <h3>🤖 系統推論與狀態紀錄</h3>
+      <div id="thoughtContent" class="thought-content"></div>
+      <div id="sourceContent" class="source-content"></div>
     </div>
   </main>
+  
   <script src="/assets/app.js"></script>
 </body>
 </html>
